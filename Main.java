@@ -7,28 +7,32 @@ public class Main {
         for (int i = 0; i < 20; i++) {
             list.add(i);
         }
+        System.out.println("" + list);
+
+        System.out.println("should add new element by index: " + list.add(3, 333));
         System.out.println(list);
 
-        System.out.println(list.add(3, 333));
-
         list.clear();
-        System.out.println("size: " + list.size());
+        System.out.println("List size after clear(): " + list.size());
 
         for (int i = 1; i < 20; i++) {
             list.add(i);
         }
+        System.out.println("New list: " + list);
+        System.out.println("Get value index = 5: " + list.get(5));
+
+        System.out.println("List IsEmpty(): " + list.isEmpty());
+
+        System.out.println("List remove(0): " + list.remove(0));
         System.out.println(list);
-        System.out.println("get value index = 5: " + list.get(5));
 
-        System.out.println(list.isEmpty());
+        System.out.println("List set(index: 10, value: 10): " + list.set(10, 10));
+        System.out.println(list);
 
-        System.out.println(list.remove(0));
+        System.out.println("List removeByValue(10): " + list.removeByValue(10));
+        System.out.println(list);
 
-        System.out.println(list.set(10, 10));
-
-        System.out.println(list.removeByValue(10));
-
-        System.out.println(list.subList(3, list.size() - 1));
+        System.out.println("Create subList(): " + list.subList(3, list.size() - 1));
 
     }
 

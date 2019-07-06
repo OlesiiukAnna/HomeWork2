@@ -4,60 +4,57 @@ import java.util.Arrays;
 
 public class IntArrayList implements IntList {
     private int[] array = new int[10];
-    private int size = 0;
+    private int numberOfElements = 0;
 
     @Override
     public boolean add(int element) {
 
-        if (size >= array.length) {
+        if (numberOfElements >= array.length) {
             int newSize = array.length * 3 / 2 + 1;
             int[] newArray = new int[newSize];
-            System.arraycopy(array, 0, newArray, 0, size);
+            System.arraycopy(array, 0, newArray, 0, numberOfElements);
             array = newArray;
         }
 
-        array[size] = element;
-        size++;
+        array[numberOfElements] = element;
+        numberOfElements++;
 
         return true;
     }
 
     @Override
     public boolean add(int index, int element) {
-        boolean result;
 
-        if (index > size) {
-            result = false;
+        if (index > numberOfElements) {
             throw new IndexOutOfBoundsException();
         }
-        if (size >= array.length) {
+        if (numberOfElements >= array.length) {
             int newSize = array.length * 3 / 2 + 1;
             int[] newArray = new int[newSize];
-            System.arraycopy(array, 0, newArray, 0, size);
+            System.arraycopy(array, 0, newArray, 0, numberOfElements);
             array = newArray;
         }
-        if (size - index >= 0) {
-            System.arraycopy(array, index, array, index + 1, size - index);
+        if (numberOfElements - index >= 0) {
+            System.arraycopy(array, index, array, index + 1, numberOfElements - index);
         }
 
         array[index] = element;
-        result = true;
-        size++;
+        numberOfElements++;
 
-        return result;
+        return true;
     }
 
     @Override
     public void clear() {
-        for (int i = 0; i < size; i++)
-            array[i] = 0;
-        size = 0;
+        array = new int[10];
+
+        numberOfElements = 0;
     }
 
     @Override
     public int get(int index) {
 
-        if (index >= size) {
+        if (index >= numberOfElements) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -66,59 +63,51 @@ public class IntArrayList implements IntList {
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return numberOfElements == 0;
     }
 
     @Override
     public boolean remove(int index) {
-        boolean result;
 
-        if (index >= size) {
-            result = false;
+        if (index >= numberOfElements) {
             throw new IndexOutOfBoundsException();
         }
-        if (size - index >= 0) {
-            System.arraycopy(array, index + 1, array, index, size - index);
+        if (numberOfElements - index >= 0) {
+            System.arraycopy(array, index + 1, array, index, numberOfElements - index);
         }
 
-        result = true;
-        size--;
+        numberOfElements--;
 
-        return result;
+        return true;
     }
 
     @Override
     public boolean removeByValue(int value) {
-        boolean result = false;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < numberOfElements; i++) {
             if (array[i] == value) {
                 remove(i);
-                result = true;
-                break;
+                return true;
             }
         }
 
-        return result;
+        return false;
     }
 
     @Override
     public boolean set(int index, int element) {
-        boolean result;
 
-        if (index >= size) {
-            result = false;
+        if (index >= numberOfElements) {
             throw new IndexOutOfBoundsException();
         }
         array[index] = element;
-        result = true;
 
-        return result;
+        return true;
     }
 
     @Override
     public int size() {
-        return size;
+        return numberOfElements;
     }
 
     @Override
@@ -128,7 +117,7 @@ public class IntArrayList implements IntList {
         if (toIndex < fromIndex) {
             throw new IllegalArgumentException();
         }
-        if (fromIndex < 0 || toIndex > size) {
+        if (fromIndex < 0 || toIndex > numberOfElements) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -141,12 +130,12 @@ public class IntArrayList implements IntList {
 
     @Override
     public int[] toArray() {
-        if (size == 0) {
+        if (numberOfElements == 0) {
             throw new NullPointerException();
         }
 
-        int[] result = new int[size];
-        System.arraycopy(array, 0, result, 0, size);
+        int[] result = new int[numberOfElements];
+        System.arraycopy(array, 0, result, 0, numberOfElements);
         return result;
     }
 
